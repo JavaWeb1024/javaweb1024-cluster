@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dinghao.dao.template.templateadmin.TemplateAdminDao" >
+  <resultMap id="BaseResultMap" type="com.dinghao.entity.template.templateadmin.TemplateAdmin" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_locked" property="isLocked" jdbcType="BIT" />
+    <result column="locked_date" property="lockedDate" jdbcType="TIMESTAMP" />
+    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+    <result column="login_failure_count" property="loginFailureCount" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    zihan.id, zihan.create_date, zihan.modify_date, zihan.department, zihan.email, zihan.is_enabled, 
+    zihan.is_locked, zihan.locked_date, zihan.login_date, zihan.login_failure_count, 
+    zihan.login_ip, zihan.name, zihan.password, zihan.username
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="createDate != null" >
+         and zihan.create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyDate != null" >
+         and zihan.modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="department != null" >
+         and zihan.department = #{department,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null" >
+         and zihan.email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="isEnabled != null" >
+         and zihan.is_enabled = #{isEnabled,jdbcType=BIT}
+      </if>
+      <if test="isLocked != null" >
+         and zihan.is_locked = #{isLocked,jdbcType=BIT}
+      </if>
+      <if test="lockedDate != null" >
+         and zihan.locked_date = #{lockedDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="loginDate != null" >
+         and zihan.login_date = #{loginDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="loginFailureCount != null" >
+         and zihan.login_failure_count = #{loginFailureCount,jdbcType=INTEGER}
+      </if>
+      <if test="loginIp != null" >
+         and zihan.login_ip = #{loginIp,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+         and zihan.name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null" >
+         and zihan.password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null" >
+         and zihan.username = #{username,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from temp_admin zihan 
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from temp_admin zihan 
+    where username = #{userName,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.dinghao.entity.vo.template.templateadmin.TemplateAdminVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from temp_admin zihan 
+    <include refid="whereFields" />
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.dinghao.entity.vo.template.templateadmin.TemplateAdminVo" >
+    select count(1) from temp_admin zihan 
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from temp_admin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.dinghao.entity.vo.template.templateadmin.TemplateAdminVo" >
+    insert into temp_admin (id, create_date, modify_date, 
+      department, email, is_enabled, 
+      is_locked, locked_date, login_date, 
+      login_failure_count, login_ip, name, 
+      password, username)
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{department,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{isEnabled,jdbcType=BIT}, 
+      #{isLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP}, #{loginDate,jdbcType=TIMESTAMP}, 
+      #{loginFailureCount,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dinghao.entity.vo.template.templateadmin.TemplateAdminVo" useGeneratedKeys="true" keyProperty="id" >
+    insert into temp_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isLocked != null" >
+        is_locked,
+      </if>
+      <if test="lockedDate != null" >
+        locked_date,
+      </if>
+      <if test="loginDate != null" >
+        login_date,
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dinghao.entity.vo.template.templateadmin.TemplateAdminVo" >
+    update temp_admin
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        is_locked = #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

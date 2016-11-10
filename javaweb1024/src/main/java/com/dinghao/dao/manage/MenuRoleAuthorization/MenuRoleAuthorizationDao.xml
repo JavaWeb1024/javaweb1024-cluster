@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.dinghao.dao.manage.MenuRoleAuthorization.MenuRoleAuthorizationDao">
+	<resultMap id="BaseResultMap"
+		type="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="menu_role_id" jdbcType="BIGINT" property="menuRoleId" />
+		<result column="authorization_name" jdbcType="VARCHAR"
+			property="authorizationName" />
+		<result column="authorization_description" jdbcType="VARCHAR"
+			property="authorizationDescription" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		zihan.id, zihan.menu_role_id, zihan.authorization_name,
+		zihan.authorization_description
+	</sql>
+
+	<sql id="whereFields">
+		<where>
+			<if test="menuRoleId != null">
+				and zihan.menu_role_id = #{menuRoleId,jdbcType=BIGINT}
+			</if>
+			<if test="authorizationName != null">
+				and zihan.authorization_name =
+				#{authorizationName,jdbcType=VARCHAR}
+			</if>
+			<if test="authorizationDescription != null">
+				and zihan.authorization_description =
+				#{authorizationDescription,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu_role_authorization zihan
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByStatement"
+		parameterType="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu_role_authorization zihan
+		<include refid="whereFields" />
+		limit #{offset},#{rows}
+	</select>
+	<select id="selectByStatementIds" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu_role_authorization zihan
+		left join dh_menu_role MR on
+		MR.id = zihan.menu_role_id
+		where MR.menus=#{menus,jdbcType=BIGINT} and
+		MR.roles=#{roles,jdbcType=BIGINT}
+
+	</select>
+	<select id="selectByStatementCount"
+		parameterType="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization"
+		resultType="int">
+		select count(1) from dh_menu_role_authorization zihan
+		<include refid="whereFields" />
+	</select>
+
+
+	<select id="findMenuRoleAuthorizationByAdminId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu_role_authorization zihan
+		<if test="id != 1">
+			LEFT JOIN dh_menu_role A
+			ON a.id =
+			zihan.menu_role_id
+			LEFT JOIN dh_role
+			B
+			ON b.id = a.roles
+			LEFT JOIN
+			dh_admin_role C
+			ON c.roles = b.id
+			LEFT JOIN
+			dh_admin D
+			ON D.id = C.admins
+			WHERE d.id =#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		dh_menu_role_authorization
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteAllByPrimaryKey" parameterType="java.lang.Long">
+		delete A,B
+		FROM
+		dh_menu_role A
+		LEFT JOIN dh_menu_role_authorization B
+		ON B.menu_role_id
+		= A.id
+		WHERE A.menus = #{menuId,jdbcType=BIGINT}
+		AND A.roles =
+		#{roleId,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert"
+		parameterType="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization">
+		insert into dh_menu_role_authorization (id,
+		menu_role_id,
+		authorization_name,
+		authorization_description)
+		values
+		(#{id,jdbcType=BIGINT}, #{menuRoleId,jdbcType=BIGINT},
+		#{authorizationName,jdbcType=VARCHAR},
+		#{authorizationDescription,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" keyProperty="id"
+		parameterType="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization"
+		useGeneratedKeys="true">
+		insert into dh_menu_role_authorization
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="menuRoleId != null">
+				menu_role_id,
+			</if>
+			<if test="authorizationName != null">
+				authorization_name,
+			</if>
+			<if test="authorizationDescription != null">
+				authorization_description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="menuRoleId != null">
+				#{menuRoleId,jdbcType=BIGINT},
+			</if>
+			<if test="authorizationName != null">
+				#{authorizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="authorizationDescription != null">
+				#{authorizationDescription,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.dinghao.entity.manage.menuroleauthorization.MenuRoleAuthorization">
+		update dh_menu_role_authorization
+		<set>
+			<if test="menuRoleId != null">
+				menu_role_id = #{menuRoleId,jdbcType=BIGINT},
+			</if>
+			<if test="authorizationName != null">
+				authorization_name =
+				#{authorizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="authorizationDescription != null">
+				authorization_description =
+				#{authorizationDescription,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

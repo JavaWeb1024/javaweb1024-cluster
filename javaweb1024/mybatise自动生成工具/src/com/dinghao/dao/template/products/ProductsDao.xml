@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dinghao.dao.template.products.ProductsDao" >
+  <resultMap id="BaseResultMap" type="com.dinghao.entity.template.products.Products" >
+    <id column="Id" property="id" jdbcType="BIGINT" />
+    <result column="Create_Date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="Modify_Date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="Modify_By" property="modifyBy" jdbcType="BIGINT" />
+    <result column="Product_Category" property="productCategory" jdbcType="INTEGER" />
+    <result column="Product_Name" property="productName" jdbcType="VARCHAR" />
+    <result column="Product_Number" property="productNumber" jdbcType="VARCHAR" />
+    <result column="Product_Capacity" property="productCapacity" jdbcType="VARCHAR" />
+    <result column="Product_Material" property="productMaterial" jdbcType="VARCHAR" />
+    <result column="Product_home" property="productHome" jdbcType="VARCHAR" />
+    <result column="perfect_product" property="perfectProduct" jdbcType="BIT" />
+    <result column="Product_company" property="productCompany" jdbcType="VARCHAR" />
+    <result column="Product_date" property="productDate" jdbcType="TIMESTAMP" />
+    <result column="Create_By" property="createBy" jdbcType="BIGINT" />
+    <result column="Remarks" property="remarks" jdbcType="INTEGER" />
+    <result column="Remarks1" property="remarks1" jdbcType="VARCHAR" />
+    <result column="Remarks2" property="remarks2" jdbcType="VARCHAR" />
+    <result column="temp_admin_id" property="tempAdminId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    zihan.Id, zihan.Create_Date, zihan.Modify_Date, zihan.Modify_By, zihan.Product_Category, 
+    zihan.Product_Name, zihan.Product_Number, zihan.Product_Capacity, zihan.Product_Material, 
+    zihan.Product_home, zihan.perfect_product, zihan.Product_company, zihan.Product_date, 
+    zihan.Create_By, zihan.Remarks, zihan.Remarks1, zihan.Remarks2, zihan.temp_admin_id
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="createDate != null" >
+         and zihan.Create_Date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyDate != null" >
+         and zihan.Modify_Date = #{modifyDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyBy != null" >
+         and zihan.Modify_By = #{modifyBy,jdbcType=BIGINT}
+      </if>
+      <if test="productCategory != null" >
+         and zihan.Product_Category = #{productCategory,jdbcType=INTEGER}
+      </if>
+      <if test="productName != null" >
+         and zihan.Product_Name = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productNumber != null" >
+         and zihan.Product_Number = #{productNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="productCapacity != null" >
+         and zihan.Product_Capacity = #{productCapacity,jdbcType=VARCHAR}
+      </if>
+      <if test="productMaterial != null" >
+         and zihan.Product_Material = #{productMaterial,jdbcType=VARCHAR}
+      </if>
+      <if test="productHome != null" >
+         and zihan.Product_home = #{productHome,jdbcType=VARCHAR}
+      </if>
+      <if test="perfectProduct != null" >
+         and zihan.perfect_product = #{perfectProduct,jdbcType=BIT}
+      </if>
+      <if test="productCompany != null" >
+         and zihan.Product_company = #{productCompany,jdbcType=VARCHAR}
+      </if>
+      <if test="productDate != null" >
+         and zihan.Product_date = #{productDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createBy != null" >
+         and zihan.Create_By = #{createBy,jdbcType=BIGINT}
+      </if>
+      <if test="remarks != null" >
+         and zihan.Remarks = #{remarks,jdbcType=INTEGER}
+      </if>
+      <if test="remarks1 != null" >
+         and zihan.Remarks1 = #{remarks1,jdbcType=VARCHAR}
+      </if>
+      <if test="remarks2 != null" >
+         and zihan.Remarks2 = #{remarks2,jdbcType=VARCHAR}
+      </if>
+      <if test="tempAdminId != null" >
+         and zihan.temp_admin_id = #{tempAdminId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from temp_products zihan 
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.dinghao.entity.template.products.Products" >
+    select 
+    <include refid="Base_Column_List" />
+    from temp_products zihan 
+    <include refid="whereFields" />
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.dinghao.entity.template.products.Products" >
+    select count(1) from temp_products zihan 
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from temp_products
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.dinghao.entity.template.products.Products" >
+    insert into temp_products (Id, Create_Date, Modify_Date, 
+      Modify_By, Product_Category, Product_Name, 
+      Product_Number, Product_Capacity, Product_Material, 
+      Product_home, perfect_product, Product_company, 
+      Product_date, Create_By, Remarks, 
+      Remarks1, Remarks2, temp_admin_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=BIGINT}, #{productCategory,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productNumber,jdbcType=VARCHAR}, #{productCapacity,jdbcType=VARCHAR}, #{productMaterial,jdbcType=VARCHAR}, 
+      #{productHome,jdbcType=VARCHAR}, #{perfectProduct,jdbcType=BIT}, #{productCompany,jdbcType=VARCHAR}, 
+      #{productDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{remarks,jdbcType=INTEGER}, 
+      #{remarks1,jdbcType=VARCHAR}, #{remarks2,jdbcType=VARCHAR}, #{tempAdminId,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dinghao.entity.template.products.Products" useGeneratedKeys="true" keyProperty="id" >
+    insert into temp_products
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="createDate != null" >
+        Create_Date,
+      </if>
+      <if test="modifyDate != null" >
+        Modify_Date,
+      </if>
+      <if test="modifyBy != null" >
+        Modify_By,
+      </if>
+      <if test="productCategory != null" >
+        Product_Category,
+      </if>
+      <if test="productName != null" >
+        Product_Name,
+      </if>
+      <if test="productNumber != null" >
+        Product_Number,
+      </if>
+      <if test="productCapacity != null" >
+        Product_Capacity,
+      </if>
+      <if test="productMaterial != null" >
+        Product_Material,
+      </if>
+      <if test="productHome != null" >
+        Product_home,
+      </if>
+      <if test="perfectProduct != null" >
+        perfect_product,
+      </if>
+      <if test="productCompany != null" >
+        Product_company,
+      </if>
+      <if test="productDate != null" >
+        Product_date,
+      </if>
+      <if test="createBy != null" >
+        Create_By,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="remarks1 != null" >
+        Remarks1,
+      </if>
+      <if test="remarks2 != null" >
+        Remarks2,
+      </if>
+      <if test="tempAdminId != null" >
+        temp_admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=BIGINT},
+      </if>
+      <if test="productCategory != null" >
+        #{productCategory,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null" >
+        #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productCapacity != null" >
+        #{productCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="productMaterial != null" >
+        #{productMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="productHome != null" >
+        #{productHome,jdbcType=VARCHAR},
+      </if>
+      <if test="perfectProduct != null" >
+        #{perfectProduct,jdbcType=BIT},
+      </if>
+      <if test="productCompany != null" >
+        #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=INTEGER},
+      </if>
+      <if test="remarks1 != null" >
+        #{remarks1,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks2 != null" >
+        #{remarks2,jdbcType=VARCHAR},
+      </if>
+      <if test="tempAdminId != null" >
+        #{tempAdminId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dinghao.entity.template.products.Products" >
+    update temp_products
+    <set >
+      <if test="createDate != null" >
+        Create_Date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        Modify_Date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        Modify_By = #{modifyBy,jdbcType=BIGINT},
+      </if>
+      <if test="productCategory != null" >
+        Product_Category = #{productCategory,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        Product_Name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null" >
+        Product_Number = #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productCapacity != null" >
+        Product_Capacity = #{productCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="productMaterial != null" >
+        Product_Material = #{productMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="productHome != null" >
+        Product_home = #{productHome,jdbcType=VARCHAR},
+      </if>
+      <if test="perfectProduct != null" >
+        perfect_product = #{perfectProduct,jdbcType=BIT},
+      </if>
+      <if test="productCompany != null" >
+        Product_company = #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        Product_date = #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        Create_By = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=INTEGER},
+      </if>
+      <if test="remarks1 != null" >
+        Remarks1 = #{remarks1,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks2 != null" >
+        Remarks2 = #{remarks2,jdbcType=VARCHAR},
+      </if>
+      <if test="tempAdminId != null" >
+        temp_admin_id = #{tempAdminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

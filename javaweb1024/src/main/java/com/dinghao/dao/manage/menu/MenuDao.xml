@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dinghao.dao.manage.menu.MenuDao">
+	<resultMap id="BaseResultMap" type="com.dinghao.entity.manage.menu.Menu">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="parent_id" jdbcType="BIGINT" property="parentId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sort" jdbcType="DECIMAL" property="sort" />
+		<result column="href" jdbcType="VARCHAR" property="href" />
+		<result column="target" jdbcType="VARCHAR" property="target" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+		<result column="is_show" jdbcType="CHAR" property="isShow" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="modify_by" jdbcType="BIGINT" property="modifyBy" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="authorities" jdbcType="VARCHAR" property="authorities" />
+		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+		<result column="menu_type" jdbcType="DECIMAL" property="menuType" />
+	</resultMap>
+	<!-- where条件 -->
+	<sql id="whereFields">
+		<where>
+			<if test="parentId != null and parentId>0">
+				and parent_id = #{parentId,jdbcType=BIGINT}
+			</if>
+			<if test="id != null and id >0">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+
+			<if test="href != null">
+				and href = #{href,jdbcType=VARCHAR}
+			</if>
+			<if test="menuType != null and menuType>-1">
+				and menu_type = #{menuType,jdbcType=DECIMAL}
+			</if>
+			<if test="target != null">
+				and target = #{target,jdbcType=VARCHAR}
+			</if>
+			<if test="icon != null">
+				and icon = #{icon,jdbcType=VARCHAR}
+			</if>
+			<if test="isShow != null">
+				and is_show = #{isShow,jdbcType=CHAR}
+			</if>
+			<if test="createBy != null and createBy>0 ">
+				and create_by = #{createBy,jdbcType=BIGINT}
+			</if>
+			<if test="createDate != null">
+				and create_date = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="modifyBy != null and modifyBy>0">
+				and modify_by = #{modifyBy,jdbcType=BIGINT}
+			</if>
+			<if test="modifyDate != null">
+				and modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="remarks != null">
+				and remarks = #{remarks,jdbcType=VARCHAR}
+			</if>
+			<if test="delFlag != null">
+				and del_flag = #{delFlag,jdbcType=CHAR}
+			</if>
+
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, parent_id, name, sort, href, target, icon, is_show,
+		create_by,
+		create_date, modify_by,
+		modify_date, remarks,menu_type,
+		del_flag,authorities
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="com.dinghao.entity.vo.manage.menuvo.MenuVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu
+		<include refid="whereFields"></include>
+		order by sort
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		dh_menu
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertSelective" parameterType="com.dinghao.entity.vo.manage.menuvo.MenuVo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into dh_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="parentId != null and parentId>0">
+				parent_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="menuType != null and menuType>-1">
+				menu_type,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+			<if test="target != null">
+				target,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="isShow != null">
+				is_show,
+			</if>
+			<if test="createBy != null and createBy>0">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyBy != null and modifyBy>0 ">
+				modify_by,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+			<if test="authorities != null">
+				authorities,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parentId != null and parentId>0 ">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="menuType != null and menuType>-1">
+				#{menuType,jdbcType=DECIMAL},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="href != null">
+				#{href,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				#{target,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				#{isShow,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null and createBy>0">
+				#{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null and modifyBy>0">
+				#{modifyBy,jdbcType=BIGINT},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="authorities != null">
+				#{authorities,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.dinghao.entity.vo.manage.menuvo.MenuVo">
+		update dh_menu
+		<set>
+			<if test="parentId != null and parentId>0">
+				parent_id = #{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="menuType != null and menuType>-1">
+				menu_type = #{menuType,jdbcType=DECIMAL},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				target = #{target,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null and createBy>0">
+				create_by = #{createBy,jdbcType=BIGINT },
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null and modifyBy>0">
+				modify_by = #{modifyBy,jdbcType=BIGINT},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="authorities != null">
+				authorities=#{authorities,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<!--获取父节点 -->
+	<select id="findParentMenu" parameterType="com.dinghao.entity.vo.manage.menuvo.MenuVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu
+		where menu_type=#{menuType,jdbcType=DECIMAL}
+		order by sort
+		,id desc
+	</select>
+	<!--获取父节点 分页 -->
+	<select id="findParentMenuPage" parameterType="com.dinghao.entity.vo.manage.menuvo.MenuVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu
+		where menu_type=#{menuType,jdbcType=DECIMAL}
+		order by sort
+		,id desc
+		limit
+		#{offset},#{rows}
+	</select>
+
+	<select id="findParentMenuCount" resultType="int">
+		SELECT count(*) num
+		FROM
+		dh_menu
+		where menu_type=1
+	</select>
+
+	<!--获取父节点对应的子节点 -->
+	<select id="findChildrenMenu" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu
+		where del_flag =1 and menu_type=2
+		<if test="id != null">
+			and parent_id =#{id,jdbcType=BIGINT}
+		</if>
+		order by sort ,id
+		desc
+	</select>
+	<!--删除所有子节点 -->
+	<delete id="deleteByParentId" parameterType="java.lang.Long">
+		delete from
+		dh_menu
+		where parent_id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="findParentMenuByAdminId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu where dh_menu.id in(
+		select menu.parent_id from dh_menu
+		as
+		menu
+		left join dh_menu_role on menu.id=dh_menu_role.menus left join
+		dh_admin_role on dh_admin_role.roles=dh_menu_role.roles
+		where
+		menu.del_flag=1
+		<if test="id != null and id !=1">
+			and dh_admin_role.admins=#{id,jdbcType=BIGINT}
+		</if>
+		)
+		order
+		by sort desc
+	</select>
+
+	<select id="findMenuByAdminId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		menu.authorities
+		from dh_menu as
+		menu
+		left join dh_menu_role on
+		menu.id=dh_menu_role.menus left join
+		dh_admin_role on
+		dh_admin_role.roles=dh_menu_role.roles
+		where
+		menu.del_flag=1
+		<if test="id != null and id !=1">
+			and dh_admin_role.admins=#{id,jdbcType=BIGINT}
+		</if>
+		order
+		by sort desc
+	</select>
+
+	<select id="findGrandParentsMenuByAdminId" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu where dh_menu.id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+		order by sort desc
+	</select>
+
+	<delete id="deleteMenuRoleByMenuId" parameterType="java.lang.Long">
+		delete from
+		dh_menu_role
+		where menus in( select id from dh_menu where
+		(dh_menu.parent_id = #{id,jdbcType=BIGINT} or
+		id=#{id,jdbcType=BIGINT}))
+	</delete>
+
+	<!--获取父节点对应的子节点 -->
+	<select id="findChildrenMenuByAdminId" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_menu where dh_menu.id in(
+		select menu.id from dh_menu
+		as
+		menu
+		left join dh_menu_role on menu.id=dh_menu_role.menus left join
+		dh_admin_role on dh_admin_role.roles=dh_menu_role.roles
+		where
+		menu.del_flag=1
+		<if test="id != null and id != 'null'">
+			and menu.parent_id =#{id}
+		</if>
+		and menu_type =2
+		<if test="adminId != 1">
+			and
+			dh_admin_role.admins=#{adminId}
+		</if>
+		)
+	</select>
+</mapper>

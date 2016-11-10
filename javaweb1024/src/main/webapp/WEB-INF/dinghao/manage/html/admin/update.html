@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>更新管理员</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-detail-con f-clearfix">
+            <form id="update_admin_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/manage/admin/updateJson.jhtml">
+                <input type="hidden" name="id" value="${admin.id}">
+                <ul class="m-message-list" style="height: 180px;">
+                    <li>
+                        <label>
+                            用户名:
+                        </label>
+                        <input type="text" id="" value="${admin.username}" disabled="disabled"
+                               class="u-ipt u-ipt-lg verify " placeholder="用户名(登陆名)" name=""/>
+                    </li>
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 密码:
+                        </label>
+                        <input type="password" id="password" class="u-ipt u-ipt-lg validate[required,,minSize[6]]"
+                               name="password" placeholder=" 管理员密码"/>
+                    </li>
+                    <li>
+                        <label> <font class="requiredField">*</font>确认密码:</label>
+                        <input type="password" class="u-ipt u-ipt-lg validate[required,equals[password],minSize[6]]"
+                               name="rePassword" placeholder="确认密码">
+                    </li>
+                    <li>
+                        <label><font class="requiredField">*</font> 管理员邮箱: </label>
+                        <input type="text" class="u-ipt u-ipt-lg  validate[required,custom[email]]" name="email"
+                               placeholder="邮箱" id="email" value="${admin.email}"/>
+                    </li>
+
+                    <li>
+                        <label> 设置 : </label>
+                        <input type="checkbox"
+                        <#if  admin.isEnabled?? && admin.isEnabled>
+                            checked="checked"
+                        </#if>
+                        style="height: 20px; margin-top: 5px; width: 20px;"
+                        name="isEnabled" value="true">
+                        启用
+                    </li>
+                    <li>
+                        <label> 姓名: </label>
+                        <input type="text" id="name" class="u-ipt u-ipt-lg verify" value="${admin.name}" placeholder="姓名" name="name"/>
+                    </li>
+                    <li style="width: 90%;">
+                        <label><font class="requiredField">*</font>角色:</label>
+                        <#list roles as e>
+                            <#if e.id gt 1>
+                                <label style="width:10%;">
+                                    <input type="checkbox" name="roleIds"
+                                    <#if  admin.roles??>
+                                        <#list admin.roles as role>
+                                            <#if role==e.id>
+                                                checked="checked"
+                                            </#if>
+                                        </#list>
+                                    </#if>
+                                    class="validate[required]" value="${e.id}"
+                                    style="height: 20px; margin-top: 5px; width: 20px;">
+                                    ${e.name}
+                                </label>
+                            </#if>
+                        </#list>
+                    </li>
+                </ul>
+                <ul class="m-form-grd-rt" style="float: right;margin-right:50%;">
+                    <li>
+                        <button id="submitForm" type="submit" class="u-btn u-btn-lg u-btn-bg-blue f-mr15">确认</button>
+                    </li>
+                </ul>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/admin/update.js?v=${config_v}1"></script>
+</html>

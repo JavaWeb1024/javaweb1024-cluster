@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色管理</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-form-tit f-mb20 f-clearfix">
+            <ul class="m-form-grd-lt">
+                <li>
+                    <label>角色信息列表</label> <span></span>
+                </li>
+            </ul>
+            <ul class="m-form-grd-rt">
+                <li>
+                    <a href="javascript:void(0);" id="add_role" class="u-btn u-btn-auto u-btn-bg-blue">新增角色信息</a>
+                </li>
+            </ul>
+        </div>
+        <div class="m-toolbar f-mb15 f-clearfix">
+            <table class="m-attr-table">
+                <thead>
+                <tr>
+                    <th width="20%">名称</th>
+                    <th width="10%">是否内置</th>
+                    <th width="60%">描述</th>
+                    <th width="10%">操作</th>
+                </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                <#list rolesList.list as e>
+                    <tr>
+                        <td>${e.name}</td>
+                        <td>
+                            <#if e.isSystem??&&e.isSystem>是
+                                <#else>否
+                            </#if>
+                        </td>
+                        <td>${e.description}</td>
+                        <td>
+                            <#if !(e.isSystem??&&e.isSystem)>
+                                <a href="javascript:void (0);" data-value="${e.id}" title="修改" class="js_update_role"><i class=" icon-edit"></i>&nbsp;&nbsp; </a>|
+                                <a href="javascript:void(0);" data-value="${e.id}" title="删除" class="js_delete_role"><i class="icon-remove-circle"></i>&nbsp;&nbsp;</a>
+                            </#if>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+            <div>
+                <div class="pagination">${rolesList.pageNumHtml}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/role/list.js?v=${config_v}"></script>
+</html>

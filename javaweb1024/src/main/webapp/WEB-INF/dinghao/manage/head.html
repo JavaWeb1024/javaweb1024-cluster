@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="Mosaddek">
+<meta name="keyword"
+	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<link rel="shortcut icon" href="img/favicon.png">
+<title>杭州鼎好科技</title>
+<!--external css-->
+<link href="${BASE_PATH}/static/share/assets/font-awesome/css/font-awesome.css?v=${config_v}"
+	rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="${BASE_PATH}/static/share/css/style.css?v=${config_v}" rel="stylesheet">
+<script type="text/javascript">
+	window.BasePath = "${BASE_PATH}";
+	window.UEDITOR_HOME_URL = "${BASE_PATH}/";
+	kindId = 0;
+	kind = "article";
+</script>
+<#include "css_js.html">
+</head>
+<body class="boxed-page">
+	<div class="container">
+		<section id="container" class="">
+			<!--header start-->
+			<header class="white-bg">
+				<div class="container" style="background-color: #ffffff; padding: 0 10px 0 10px;">
+					<!--logo start-->
+					<a href="${BASE_PATH}/index.htm" class="logo" title="访问前台页面"> Logo </a>
+					<!--logo end-->
+					<div class="nav notify-row" id="top_menu">
+						<!--  notification goes here -->
+						<ul class="top-menu">
+							<#if (menusParent?size>0)> <#list menusParent as parent> <#if parent_index==0>
+							<li>
+								<a href="<#if parent.href?? &&
+									parent.href!=''>${parent.href}<#else>${BASE_PATH}/manage/admin/myPage.jhtml?menuParentId=${parent.id}</#if>"">${parent.name}</a>
+							</li>
+							</#if> </#list> </#if>
+						</ul>
+					</div>
+					<div class="top-nav">
+						<ul class="nav pull-right top-menu" style="margin: 15px 10px 0 0">
+							<!-- user login dropdown start-->
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="username">${SESSION_ADMIN.name}</span>
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu extended logout">
+									<div class="log-arrow-up"></div>
+									<li>
+										<a href="${BASE_PATH}/manage/admin/updatePassword.jhtml">
+											<i class="icon-cog"></i> 修改密码
+										</a>
+									</li>
+									<li>
+										<a href="${BASE_PATH}/admin/logout.htm">
+											<i class="icon-key"></i> 安全退出
+										</a>
+									</li>
+								</ul>
+							</li>
+							<!-- user login dropdown end -->
+						</ul>
+					</div>
+				</div>
+			</header>
+			<!--header end-->
+			<!--sidebar start-->
+			<aside>
+				<div id="sidebar" class="nav-collapse ">
+					<!-- sidebar menu goes here-->
+					<ul class="sidebar-menu" id="nav-accordion">
+						<#if (menusChildren?size>0)> <#list menusChildren as children>
+						<li>
+							<a
+								<#if children.target?? && children.target=='1'>target="_blank"</#if> <#if menu=children.name
+								>class="active"</#if> href="${BASE_PATH}${children.href}"><i class="${children.icon!}"></i><span>${children.name}</span>
+						</a></li>
+						</#list> </#if>
+					</ul>
+				</div>
+			</aside>
+			<!--sidebar end-->

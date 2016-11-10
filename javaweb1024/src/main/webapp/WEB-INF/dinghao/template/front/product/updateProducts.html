@@ -1,0 +1,71 @@
+<#escape x as x!"">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "/template/front/css_js.html">
+<title>Insert title here</title>
+</head>
+<div class="m-content">
+	<div class="m-detail-con f-clearfix m-content">
+		<form id="javawebform" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/template/product/update_products.jhtml">
+			<input type="hidden" name="id" value="${products.id}">
+			<ul class="m-message-list">
+				<li>
+					<label> <font class="requiredField">*</font>产品名称:
+					</label>
+					<input type="text" id="productsName" class="u-ipt u-ipt-lg validate[required]" name="productName" value="${products.productName}" />
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font> 产品编号:
+					</label>
+					<input type="text" id="productsNumber" class="u-ipt u-ipt-lg validate[required]" name="productNumber" value="${products.productNumber}" />
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产产地:
+					</label>
+					<input type="text" class="u-ipt u-ipt-lg validate[required]" name="productHome" value="${products.productHome}">
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>产品容量:
+					</label>
+					<input type="text" class="u-ipt u-ipt-lg validate[required]" name="productCapacity" value="${products.productCapacity}">
+				</li>
+
+				<li>
+					<label> <font class="requiredField">*</font>产品材质:
+					</label>
+					<input type="text" class="u-ipt u-ipt-lg validate[required]" name="productMaterial" value="${products.productMaterial}">
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产日期:
+					</label>
+					<input type="text" onClick="WdatePicker()" readonly="readonly" class="u-ipt u-ipt-lg validate[required]" name="productDate" value="<#if products.productDate??> ${products.productDate?string('yyyy-MM-dd')} </#if>">
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产企业:
+					</label>
+					<input type="text" class="u-ipt u-ipt-lg validate[required]" name="productCompany" value="${products.productCompany}">
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>产品类别:
+					</label>
+					<input type="radio" name="productCategory" value="2" class="validate[required]"
+					<#if products.productCategory??&&products.productCategory==2> checked="checked" </#if> /> 文物
+					<input type="radio" name="productCategory" value="1" class="validate[required]"
+					<#if products.productCategory??&&products.productCategory==1> checked="checked" </#if> > 红酒
+
+				</li>
+			</ul>
+			<ul style="float: none; margin-top: 60px; margin-left: 42%">
+				<li>
+					<button id="submitForm" type="submit" class="u-btn u-btn-lg u-btn-bg-blue f-mr15">确认</button>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+</div>
+</html>
+<script type="text/javascript" src="${static_url}/static/template/htmljs/common/common.js?v=${config_v}"></script>
+</#escape>

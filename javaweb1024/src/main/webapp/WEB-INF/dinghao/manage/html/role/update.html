@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改角色</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-detail-con f-clearfix">
+            <ul class="m-message-list" style="height: 50px;">
+                <li>
+                    <label>
+                        名称:${roleOnly.name}
+                    </label>
+
+                </li>
+                <li>
+                    <label>
+                        描述:${roleOnly.description}
+                    </label>
+                </li>
+
+            </ul>
+            <div class="m-detail-con f-clearfix">
+                <#list parentList.list as e>
+                    <table class="table table-striped table-advance table-hover" style="margin-bottom: 0px;">
+                        <thead>
+                        <tr>
+                            <th width="20%">父节点：${e.name}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <@zihan_menu_children_list_tag id=e.id>
+                                <#list tag_menu_children_list as tag_menu>
+                                    <#if tag_menu.delFlag?? && tag_menu.delFlag=='1'>
+													<span style="margin: 3px 10px; display: inline-block;">
+														<input type="checkbox"<#list menuList as menuId>
+                                                        <#if menuId== tag_menu.id>
+                                                            checked="checked"
+                                                        </#if>
+                                                    </#list>	 name="menus" id="menu_${tag_menu.id}"
+                                                               class="validate[required]" value="${tag_menu.id}" role_id="${roleOnly.id}">
+                                                        <a href="javascript:void (0);" menu_id="${tag_menu.id}" role_id="${roleOnly.id}" class="menu_id">${tag_menu.name}[ <span class="green">正常</span> ]</#if>
+                                    </a>
+
+                                    </span>
+                                </#list>
+                            </@zihan_menu_children_list_tag>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </#list>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/role/update.js?v=${config_v}11"></script>
+</html>

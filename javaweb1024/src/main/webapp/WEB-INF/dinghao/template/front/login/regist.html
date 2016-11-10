@@ -1,0 +1,52 @@
+<#escape x as x!"">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<#include "/template/front/css_js.html">
+<style type="text/css">
+	.m-message-list li {
+		float: none;
+	}
+</style>
+</head>
+<div class="m-content">
+        <div class="f-clearfix">
+            <form id="add_templateadmin_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/regist.jhtml">
+                <ul class="m-message-list f-mb10 m-pop-detail f-clearfix" style="margin-left: 35px">
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 用户名:
+                        </label>
+                        <input type="text" id="username"
+                               class="u-ipt u-ipt-lg  validate[required,custom[onlyLetterNumber]]"
+                               placeholder="用户名(登陆名)"
+                               name="username"/>
+                    </li>
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 密码:
+                        </label>
+                        <input type="password" id="password" class="u-ipt u-ipt-lg validate[required,minSize[6]]"
+                               name="password" placeholder=" 登录密码"/>
+                    </li>
+                    <li>
+                        <label> <font class="requiredField">*</font>确认密码:</label>
+                        <input type="password" class="u-ipt u-ipt-lg validate[required,equals[password],minSize[6]]"
+                               name="rePassword" placeholder="确认密码">
+                    </li>
+                </ul>
+                <ul class="m-message-list m-pop-detail f-clearfix" style="margin-left: 135px">
+                    <li>
+                        <button id="submitForm" type="submit" class="u-btn u-ipt-sm u-btn-bg-blue f-mr15">确认</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
+<script type="text/javascript" src="${static_url}/static/template/htmljs/login/register.js?v=${config_v}1"></script>
+</#escape>

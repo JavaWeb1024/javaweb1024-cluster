@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增祖籍菜单</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-form-tit f-mb20 f-clearfix">
+            <h4>新增祖籍节点</h4>
+        </div>
+        <div class="m-detail-con f-clearfix">
+            <form id="add_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/manage/menu/addJson.jhtml">
+                <input type="hidden" name="menuType" value="0">
+                <ul class="m-message-list" style="height: 180px;">
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 名称:
+                        </label>
+                        <input type="text" id="name" class="u-ipt u-ipt-lg verify validate[required]" placeholder="名称"
+                               name="name"/>
+                    </li>
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 排序:
+                        </label>
+                        <input type="number" id="sort" class="u-ipt u-ipt-lg validate[required,custom[integer]]"
+                               name="sort" placeholder=" 排序"/>
+                    </li>
+                    <li>
+                        <label>图标:</label>
+                        <input type="text" id="icon" class="u-ipt u-ipt-lg" name="icon"
+                               placeholder="图标font-awesome (eg:icon-cogs)"/>
+                    </li>
+                    <li>
+                        <label> 备注: </label>
+                        <input type="text" class="u-ipt u-ipt-lg " name="remarks" placeholder="备注" id="remarks"/>
+                    </li>
+                    <li>
+                        <label>设置启用:</label>
+                        <input type="checkbox" checked="checked" name="delFlag" class="u-ipt u-ipt-mini"
+                               style="height: 20px; margin-top: 5px; width: 20px;" value="1">
+                    </li>
+                </ul>
+                <ul class="m-form-grd-rt" style="float: right;margin-right:50%;">
+                    <li>
+                        <button id="submitForm" type="submit" class="u-btn u-btn-lg u-btn-bg-blue f-mr15">确认</button>
+                    </li>
+                </ul>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/menu/addChildren.js?v=${config_v}"></script>
+</html>

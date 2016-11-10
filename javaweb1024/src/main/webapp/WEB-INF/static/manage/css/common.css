@@ -1,0 +1,1027 @@
+@charset "utf-8";
+/*
+*   0. 鼎好公共样式表
+*   1. Author : tonyt
+*   2. Version : 1.0 | 20151222
+*   3. Description ：
+*      ----CSS Reset     重置----------重置浏览器默认样式
+*      ----CSS Function  功能----------(.f-)从常用样式方法中脱离，且包含一些常见bug处理方案，如：闭合浮动。注：新加入了CSS3 Animation动画，基于CSS3，本着“逐渐增强”，“平稳退化”的原则，按需使用
+*      ----CSS Unit      元件----------(.u-)如按钮，单选框，下拉框等常用元件样式
+*      ----CSS Module    模块----------(.m-)定义可以重复使用的较大的整体！比如列表、搜索、分页等，模块可能是由几个元件构成，也可单独一份样式文件中引入
+*/
+
+/*======== CSS Reset ========*/
+/*html { overflow-y: scroll; }*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fieldset, lengend, button, input, textarea, th, td {
+	margin: 0; padding: 0
+}
+
+body, button, input, select, textarea {
+	font: 12px/1.5 "微软雅黑", "宋体"; background: #e6e6e6; color: #666;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+}
+
+address, cite, dfn, em, var {
+	font-style: normal;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+a {
+	text-decoration: none; color: #666;
+}
+
+a:hover {
+	text-decoration: none; color: #00a0e9;
+}
+
+fieldset, img {
+	border: 0
+}
+
+button, input, select, textarea {
+	font-size: 100%;
+}
+
+input[type="text"], input[type="password"], textarea {
+	text-indent: 5px;
+}
+
+input[type="radio"] {
+	line-height: 30px; height: 30px; display: inline-block
+}
+
+:focus {
+	outline: 0;
+}
+
+/*======== CSS Function ========*/
+.f-clearfix:after {
+	content: ""; display: table; clear: both;
+}
+
+.f-bfc {
+	overflow: hidden; *zoom: 1;
+}
+
+.f-fl {
+	float: left;
+}
+
+.f-fr {
+	float: right;
+}
+
+.f-fn {
+	float: none !important;
+}
+
+.f-hidden {
+	display: none;
+}
+
+/*
+* 常用光标，pointer:一只手, default:默认, help:一个问号, csforbid:禁用
+*/
+.f-csp {
+	cursor: pointer;
+}
+
+.f-csd {
+	cursor: default;
+}
+
+.f-csh {
+	cursor: help;
+}
+
+.f-csm {
+	cursor: move;
+}
+
+.f-csforbid {
+	cursor: not-allowed !important;
+}
+
+/*
+* A: 常用宽高：-- 分auto、100%、具体数字三大类，具体数字范围50-100，公差d=5
+*/
+.f-w-auto {
+	width: auto !important;
+}
+
+.f-w100pre {
+	width: 100% !important;
+}
+
+.f-w50pre {
+	width: 50% !important;
+}
+
+.f-w50 {
+	width: 50px !important;
+}
+
+.f-w55 {
+	width: 55px !important;
+}
+
+.f-w60 {
+	width: 60px !important;
+}
+
+.f-w65 {
+	width: 65px !important;
+}
+
+.f-w70 {
+	width: 70px !important;
+}
+
+.f-w75 {
+	width: 75px !important;
+}
+
+.f-w80 {
+	width: 80px !important;
+}
+
+.f-w85 {
+	width: 85px !important;
+}
+
+.f-w90 {
+	width: 90px !important;
+}
+
+.f-w95 {
+	width: 95px !important;
+}
+
+.f-w100 {
+	width: 100px !important;
+}
+
+.f-h-auto {
+	height: auto !important;
+}
+
+.f-h100pre {
+	height: 100%;
+}
+
+.f-h50 {
+	height: 50px !important;
+}
+
+.f-h55 {
+	height: 55px !important;
+}
+
+.f-h60 {
+	height: 60px !important;
+}
+
+.f-h65 {
+	height: 65px !important;
+}
+
+.f-h70 {
+	height: 70px !important;
+}
+
+.f-h75 {
+	height: 75px !important;
+}
+
+.f-h80 {
+	height: 80px !important;
+}
+
+.f-h85 {
+	height: 85px !important;
+}
+
+.f-h90 {
+	height: 90px !important;
+}
+
+.f-h95 {
+	height: 95px !important;
+}
+
+.f-h100 {
+	height: 100px !important;
+}
+
+/*
+* B: 常用margin、padding值：-- 范围0~50，公差d=5
+*/
+.f-mt0 {
+	margin-top: 0 !important
+}
+
+.f-mt5 {
+	margin-top: 5px !important
+}
+
+.f-mt10 {
+	margin-top: 10px !important
+}
+
+.f-mt15 {
+	margin-top: 15px !important
+}
+
+.f-mt20 {
+	margin-top: 20px !important
+}
+
+.f-mt30 {
+	margin-top: 30px !important
+}
+
+.f-mt40 {
+	margin-top: 40px !important
+}
+
+.f-mt50 {
+	margin-top: 50px !important
+}
+
+.f-mr0 {
+	margin-right: 0 !important
+}
+
+.f-mr5 {
+	margin-right: 5px !important
+}
+
+.f-mr10 {
+	margin-right: 10px !important
+}
+
+.f-mr15 {
+	margin-right: 15px !important
+}
+
+.f-mr20 {
+	margin-right: 20px !important
+}
+
+.f-mr30 {
+	margin-right: 30px !important
+}
+
+.f-mr40 {
+	margin-right: 40px !important
+}
+
+.f-mr50 {
+	margin-right: 50px !important
+}
+
+.f-mb0 {
+	margin-bottom: 0 !important
+}
+
+.f-mb5 {
+	margin-bottom: 5px !important
+}
+
+.f-mb10 {
+	margin-bottom: 10px !important
+}
+
+.f-mb15 {
+	margin-bottom: 15px !important
+}
+
+.f-mb20 {
+	margin-bottom: 20px !important
+}
+
+.f-mb30 {
+	margin-bottom: 30px !important
+}
+
+.f-mb40 {
+	margin-bottom: 40px !important
+}
+
+.f-mb50 {
+	margin-bottom: 50px !important
+}
+
+.f-ml0 {
+	margin-left: 0 !important
+}
+
+.f-ml5 {
+	margin-left: 5px !important
+}
+
+.f-ml10 {
+	margin-left: 10px !important
+}
+
+.f-ml15 {
+	margin-left: 15px !important
+}
+
+.f-ml20 {
+	margin-left: 20px !important
+}
+
+.f-ml30 {
+	margin-left: 30px !important
+}
+
+.f-ml40 {
+	margin-left: 40px !important
+}
+
+.f-ml50 {
+	margin-left: 50px !important
+}
+
+.f-pt0 {
+	padding-top: 0 !important
+}
+
+.f-pt5 {
+	padding-top: 5px !important
+}
+
+.f-pt10 {
+	padding-top: 10px !important
+}
+
+.f-pt15 {
+	padding-top: 15px !important
+}
+
+.f-pt20 {
+	padding-top: 20px !important
+}
+
+.f-pt30 {
+	padding-top: 30px !important
+}
+
+.f-pt40 {
+	padding-top: 40px !important
+}
+
+.f-pt50 {
+	padding-top: 50px !important
+}
+
+.f-pr0 {
+	padding-right: 0 !important
+}
+
+.f-pr5 {
+	padding-right: 5px !important
+}
+
+.f-pr10 {
+	padding-right: 10px !important
+}
+
+.f-pr15 {
+	padding-right: 15px !important
+}
+
+.f-pr20 {
+	padding-right: 20px !important
+}
+
+.f-pr30 {
+	padding-right: 30px !important
+}
+
+.f-pr40 {
+	padding-right: 40px !important
+}
+
+.f-pr50 {
+	padding-right: 50px !important
+}
+
+.f-pb0 {
+	padding-bottom: 0 !important
+}
+
+.f-pb5 {
+	padding-bottom: 5px !important
+}
+
+.f-pb10 {
+	padding-bottom: 10px !important
+}
+
+.f-pb15 {
+	padding-bottom: 15px !important
+}
+
+.f-pb20 {
+	padding-bottom: 20px !important
+}
+
+.f-pb30 {
+	padding-bottom: 30px !important
+}
+
+.f-pb40 {
+	padding-bottom: 40px !important
+}
+
+.f-pb50 {
+	padding-bottom: 50px !important
+}
+
+.f-pl0 {
+	padding-left: 0 !important
+}
+
+.f-pl5 {
+	padding-left: 5px !important
+}
+
+.f-pl10 {
+	padding-left: 10px !important
+}
+
+.f-pl15 {
+	padding-left: 15px !important
+}
+
+.f-pl20 {
+	padding-left: 20px !important
+}
+
+.f-pl30 {
+	padding-left: 30px !important
+}
+
+.f-pl40 {
+	padding-left: 40px !important
+}
+
+.f-pl50 {
+	padding-left: 50px !important
+}
+
+/*
+* C: CSS3常见动画：1 -- 360度旋转、2 -- 1.2倍放大、3 -- 360度+1.2倍放大、4 -- 上移10px
+*/
+/*--1--*/
+.f-deg-360 {
+	transition: All 0.4s ease-in-out;
+}
+
+.f-deg-360:hover {
+	transform: rotate(360deg); -webkit-transform: rotate(360deg);
+}
+/*--2--*/
+.f-scale-1\.2 {
+	transition: All 0.4s ease-in-out;
+}
+
+.f-scale-1\.2:hover {
+	transform: scale(1.2); -webkit-transform: scale(1.2);
+}
+/*--3--*/
+.f-deg-360-scale-1\.2 {
+	transition: All 0.4s ease-in-out;
+}
+
+.f-deg-360-scale-1\.2:hover {
+	transform: rotate(360deg) scale(1.2); -webkit-transform: rotate(360deg) scale(1.2);
+}
+/*--4--*/
+.f-translate-0-10 {
+	transition: All 0.4s ease-in-out;
+}
+
+.f-translate-0-10:hover {
+	transform: translate(0, -10px); -webkit-transform: translate(0, -10px);
+}
+
+/*======== CSS Unit ========*/
+/* A: 按钮：1 -- 按钮、2 -- 大小、3 -- 颜色、4 -- 效果、5 -- 种类、6 -- 边框*/
+/*--1--*/
+.u-btn {
+	position: relative; display: inline-block; text-align: center; border-radius: 2px; vertical-align: middle; cursor: pointer; border: 0 none; box-sizing: content-box;
+	color: #fff;
+}
+/*--2--*/
+.u-btn-nm {
+	height: 30px; width: 65px; line-height: 30px;
+}
+
+.u-btn-sm {
+	height: 24px; width: 65px; line-height: 24px;
+}
+
+.u-btn-lg {
+	height: 36px; width: 130px; font: 16px/36px "微软雅黑";
+}
+
+.u-btn-auto {
+	height: 30px; padding: 0 12px; *padding: 0; line-height: 30px;
+}
+/*--3--*/
+.u-btn-bg-blue {
+	background-color: #00a0e9;
+}
+
+.u-btn-bg-red {
+	background-color: #e6002c;
+}
+
+.u-btn-bg-gray {
+	background-color: #f5f5f5; color: #333;
+}
+
+.u-btn-bg-blue-disabled {
+	background-color: #d0f0ff; cursor: default;
+}
+
+.u-btn-bg-red-disabled {
+	background-color: #ffd6de; cursor: default;
+}
+
+.u-btn-bg-gray-disabled {
+	background-color: #f5f5f5; cursor: default; color: #cccccc;
+}
+/*--4--*/
+.u-btn:hover {
+	color: #fff;
+}
+
+.u-btn-bg-blue:hover {
+	background-color: #0082be;
+}
+
+.u-btn-bg-red:hover {
+	background-color: #c30025;
+}
+
+.u-btn-bg-gray:hover {
+	background-color: #e4e4e4; color: #333;
+}
+
+.u-btn-bg-gray-disabled:hover {
+	background-color: #f5f5f5; cursor: default; color: #cccccc;
+}
+/*--5--*/
+.u-btn-group {
+	position: relative;
+}
+
+.u-btn-group.open a.u-btn {
+	background-color: #e4e4e4; color: #333;
+}
+
+.u-btn i {
+	display: inline-block; position: absolute;
+}
+
+.u-btn .ico-add {
+	top: 5px; left: 10px; background: url(../images/common/f_ico03.png) no-repeat; width: 20px; height: 20px;
+}
+
+.u-btn .ico-sel {
+	top: 10px; right: 10px; background: url(../images/common/f_ico01.png) no-repeat; width: 9px; height: 9px;
+}
+
+.u-btn .ico-ope {
+	top: 4px; left: 10px; background: url(../images/common/f_ico02.png) no-repeat; width: 21px; height: 20px;
+}
+
+.u-btn-sel-con {
+	position: absolute; top: 31px; left: 0px; z-index: 9999; display: none; float: left; min-width: 160px; /* padding: 5px 0; */ margin: 2px 0 0; list-style: none;
+	background-color: #fff; border: 1px solid #ccc;
+}
+
+.u-btn-sel-con li {
+	border-bottom: 1px solid #f1f1f1; line-height: 24px;
+}
+
+.u-btn-sel-con li a {
+	display: block; padding: 2px 15px;
+}
+
+.u-btn-sel-con li a:hover {
+	color: #333; background-color: #f5f5f5;
+}
+/*--6--*/
+.u-bd-none {
+	border: none !important;
+}
+
+.u-bd-color-blue {
+	border: 1px solid #00a0e9;
+}
+
+.u-bd-color-gray {
+	border: 1px solid #e1e1e1;
+}
+
+.u-bd-color-green {
+	border: 1px solid #0ba299;
+}
+
+.u-bg-color-white {
+	border: 1px solid #fff;
+}
+
+/* B: 单行文本框：1 -- 单行文本框、2 -- 大小、3 -- 种类、4 -- 效果*/
+/*--1--*/
+.u-ipt {
+	vertical-align: middle; border: 1px solid #cbcbcb; color: #666; background-color: #fff;
+}
+/*--2--*/
+.u-ipt-mini {
+	width: 90px; height: 30px; line-height: 30px;
+}
+
+.u-ipt-sm {
+	width: 120px; height: 30px; line-height: 30px;
+}
+
+.u-ipt-nm {
+	width: 150px; height: 30px; line-height: 30px;
+}
+
+.u-ipt-lg {
+	width: 300px; height: 30px; line-height: 30px;
+}
+/*--3--*/
+.u-ipt-err {
+	border: 1px #ff0000 solid;
+	background-color: #ffff8e;
+}
+
+.u-ipt-disabled {
+	background-color: #f5f5f5;
+}
+/*--4--*/
+.u-ipt:hover, .u-ipt:focus {
+	border: 1px solid #0077ff;
+}
+
+.u-ipt-err:hover, .u-ipt-err:focus {
+	border: 1px solid #ff0000;
+}
+
+.u-ipt-disabled:hover, .u-ipt-disabled:focus {
+	border: 1px solid #cbcbcb;
+}
+
+/* C: 下拉框：1 -- 下拉框、2 -- 大小、3 -- 种类*/
+/*--1--*/
+.u-select {
+	vertical-align: middle; border: 1px solid #d4d4d4; color: #666; background-color: #fff;
+}
+/*--2--*/
+.u-select-mini {
+	width: 92px; height: 32px; line-height: 32px;
+}
+
+.u-select-sm {
+	width: 122px; height: 32px; line-height: 32px;
+}
+
+.u-select-nm {
+	width: 152px; height: 32px; line-height: 32px;
+}
+
+.u-select-lg {
+	width: 301px; height: 32px; line-height: 32px;
+}
+/*--3--*/
+.u-select-disabled {
+	background-color: #f5f5f5; cursor: default;
+}
+
+/* D: 多行文本输入框：1 -- 多行文本框、2 -- 大小、3 -- 种类*/
+/*--1--*/
+.u-textarea {
+	vertical-align: middle; border: 1px solid #d4d4d4; color: #666; background-color: #fff;
+}
+/*--2--*/
+.u-textarea-auto {
+	width: 100% !important;
+}
+
+.u-textarea-sm {
+	width: 200px;
+}
+
+.u-textarea-nm {
+	width: 300px;
+}
+
+.u-textarea-lg {
+	width: 400px;
+}
+/*--3--*/
+.u-textarea-disabled {
+	background-color: #f5f5f5; cursor: default;
+}
+
+/*======== CSS Module ========*/
+.m-detail-con {
+	padding: 10px; background: #fff; min-width: 960px;
+}
+
+.m-frameCon {
+	width: 100%; height: 100%;
+}
+
+.m-pop-body {
+	background: #fff;
+}
+
+.m-pop-detail {
+	padding: 15px 10px 40px;
+}
+
+.m-pop-bot {
+	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; position: fixed; bottom: 0px; height: 50px; line-height: 50px; text-align: right;
+	padding-right: 20px; width: 100%; background: #e5e5e5;
+}
+
+/* 弹出提示 */
+.m-dialog {
+	border: 1px solid rgba(131, 131, 131, 0.7); border: 1px solid #999\9; box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+}
+
+.m-dialog-header {
+	position: relative;
+}
+
+.m-dialog-title {
+	height: 30px; line-height: 29px; padding: 0 28px 0 10px; text-shadow: 0 1px 0 rgba(255, 255, 255, .7); background-color: #edf5f8; font-weight: bold; color: #4c5a5f;
+	font-family: Tahoma, Arial/ 9 !important; background-color: #bdc6cd; background: linear-gradient(top, #edf5f8, #bdc6cd);
+	background: -moz-linear-gradient(top, #edf5f8, #bdc6cd); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#edf5f8), to(#bdc6cd));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#edf5f8', endColorstr='#bdc6cd'); border-top: 1px solid #edf5f8; border-bottom: 1px solid #b6bec5;
+	text-overflow: ellipsis; overflow: hidden;
+}
+
+.m-dialog-close {
+	display: block; position: absolute; text-decoration: none; outline: none; _cursor: pointer; padding: 0; top: 4px; right: 4px; width: 21px; height: 21px; line-height: 21px;
+	font-size: 18px; color: #68767b; text-align: center; font-family: Helvetica, STHeiti; _font-family: Tahoma, '\u9ed1\u4f53', 'Book Antiqua', Palatino;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.m-dialog-close:hover {
+	background: #C72015; color: #fff;
+}
+
+.m-dialog-close:active {
+	box-shadow: none;
+}
+
+.m-dialog-main {
+	background: #fff; text-align: center; display: table-cell; vertical-align: middle; min-width: 19em; min-width: 0\9 /*IE8 BUG*/;
+}
+
+.m-dialog-content {
+	padding: 20px 15px; *zoom: 1; *display: inline; color: #666; text-align: left; border: none 0;
+}
+
+.m-dialog-buttons {
+	padding: 8px; text-align: right; white-space: nowrap; background-color: #F6F6F6; border-top: solid 1px #DADEE5;
+}
+
+.m-dialog-buttons button {
+	margin-left: 15px; padding: 6px 8px; cursor: pointer; display: inline-block; text-align: center; line-height: 1; *padding: 4px 10px; *height: 2em; letter-spacing: 2px;
+	font-family: Tahoma, Arial/ 9 !important; width: auto; overflow: visible; *width: 1; color: #333; border: solid 1px #999; border-radius: 5px; background: #DDD;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); background: linear-gradient(top, #FFF, #DDD);
+	background: -moz-linear-gradient(top, #FFF, #DDD); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#DDD));
+	text-shadow: 0px 1px 1px rgba(255, 255, 255, 1); box-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0 -1px 0 rgba(0, 0, 0, .09); -moz-transition: -moz-box-shadow linear .2s;
+	-webkit-transition: -webkit-box-shadow linear .2s; transition: box-shadow linear .2s;
+}
+
+.m-dialog-buttons button::-moz-focus-inner {
+	border: 0; padding: 0; margin: 0;
+}
+
+.m-dialog-buttons button:focus {
+	outline: none 0; border-color: #426DC9; box-shadow: 0 0 8px rgba(66, 109, 201, .9);
+}
+
+.m-dialog-buttons button:hover {
+	color: #000; border-color: #666;
+}
+
+.m-dialog-buttons button:active {
+	border-color: #666; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#FFFFFF'); background: linear-gradient(top, #DDD, #FFF);
+	background: -moz-linear-gradient(top, #DDD, #FFF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DDD), to(#FFF));
+	box-shadow: inset 0 1px 5px rgba(66, 109, 201, .9), inset 0 1px 1em rgba(0, 0, 0, .3);
+}
+
+button.dialog_highlight {
+	color: #FFF; border: solid 1px #1c6a9e; background: #2288cc; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc');
+	background: linear-gradient(top, #33bbee, #2288cc); background: -moz-linear-gradient(top, #33bbee, #2288cc);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); text-shadow: -1px -1px 1px #1c6a9e;
+}
+
+button.dialog_highlight:hover {
+	color: #FFF; border-color: #0F3A56;
+}
+
+button.dialog_highlight:active {
+	border-color: #1c6a9e; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc');
+	background: linear-gradient(top, #33bbee, #2288cc); background: -moz-linear-gradient(top, #33bbee, #2288cc);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc));
+}
+
+/*======== Pop ========*/
+.m-sPopCon {
+	display: none; background: #ebebeb; position: absolute; z-index: 1001; overflow: hidden; width: 820px; height: 460px;
+}
+
+.m-sPopTitle {
+	height: 35px; line-height: 35px; overflow: hidden; background: #00a0e9; border-bottom: 1px solid #d9dbda;
+}
+
+.m-sPopTitle strong {
+	font-size: 14px; padding: 0px 20px; color: #fff; float: left;
+}
+
+.m-sPopTitle b {
+	float: right; padding: 0px 10px; font-size: 16px; cursor: pointer; color: #fff;
+}
+
+.m-sPopContent {
+	height: 425px; overflow: hidden;
+}
+
+.m-sPopBg {
+	width: 100%; height: 100%; position: fixed; left: 0px; top: 0px; z-index: 1000; _position: absolute; _width: expression(eval(document.documentElement.clientWidth));
+	_height: expression(eval(document.documentElement.clientHeight)); _top: expression(eval(document.documentElement.scrollTop)); display: none; background: #000;
+	filter: Alpha(opacity = 80); opacity: 0.8;
+}
+
+.m-scroll {
+	_overflow: hidden;
+}
+
+.m-scroll body {
+	overflow: hidden;
+}
+
+/*======== citySel ========*/
+.area-box {
+	position: relative;
+}
+
+.area-con {
+	display: none; position: absolute; background: #fff; z-index: 1000; left: 0px; width: 288px; border: 1px solid #83a0ff; min-height: 50px;
+}
+
+.area-con .operation {
+	background: #83a0ff; margin-bottom: 4px;
+}
+
+.area-con .operation ul {
+	padding: 0px; width: 100%; zoom: 1; overflow: hidden;
+}
+
+.area-con .operation li {
+	float: left; width: 25%; margin: 0;
+}
+
+.area-con .operation li a {
+	display: block; height: 22px; line-height: 21px; text-align: center; color: #fff;
+}
+
+.area-con .operation li.on a {
+	background: #fff; color: #83a0ff;
+}
+
+.province, .city, .area {
+	display: none;
+}
+
+.province .box {
+	zoom: 1; overflow: hidden; border-bottom: 1px solid #efefef; padding-bottom: 4px; margin-bottom: 5px;
+}
+
+.province .box.last {
+	border-bottom: none;
+}
+
+.province .box .sort {
+	float: left; width: 38px; height: 48px; line-height: 48px; color: #83a0ff; text-align: center; cursor: default;
+}
+
+.province .box .list {
+	float: left; width: 250px;
+}
+
+.province .box .list a, .city .box a, .area .box a {
+	display: block; float: left; width: 40px; height: 24px; line-height: 24px; text-align: center; white-space: nowrap;
+}
+
+.province .box .list a:hover, .city .box a:hover, .area .box a:hover {
+	color: #83a0ff; background: #f1f1f1;
+}
+
+.city .box, .area .box {
+	zoom: 1; overflow: hidden; padding: 5px 12px 10px;
+}
+
+.city .box a, .area .box a {
+	width: auto; padding: 0 4px; margin-right: 8px;
+}
+
+/*======== Verify ========*/
+.m-verify {
+	display: inline-block; position: relative;
+}
+
+.m-tipShow-error {
+	display: inline-block; white-space: nowrap; height: 26px; line-height: 26px; position: absolute; z-index: 10; top: 0px;
+	background: #fff url(../images/common/reg_wrong.png) no-repeat 5px 7px; padding: 0 15px 0 24px; border: 1px solid #ff0000; border-radius: 6px;
+}
+
+.m-tipShow-error span {
+	position: absolute; left: -5px; top: 7px; background: url(../images/common/reg_wrong_cut.png) no-repeat; width: 5px; height: 10px; display: inline-block;
+}
+
+.m-tipShow-correct {
+	display: inline-block; width: 12px; height: 12px; top: 8px; position: absolute; background: url(../images/common/reg_true.png) no-repeat;
+}
+
+.loaddings {
+	width: 140px; height: 140px; position: fixed; top: 50%; left: 50%; background: rgba(0, 0, 0, .5); text-align: center; z-index: 999; color: #fff;
+}
+/* 加载&提示  */
+.m-tip-con {
+	border-radius: 5px; font-size: 14px; position: absolute; color: #5da197; z-index: 103; top: 5px; left: 400px; background: #e9faf9; border: 1px dashed #79ddd0;
+	padding: 10px 15px; min-width: 200px; max-width: 350px
+}
+
+.m-tip-error {
+	background-color: #ffeded; border-color: #fec4c8; color: #b85b54; font-size: 16px
+}
+
+.loaddings {
+	width: 140px; height: 140px; position: fixed; top: 50%; left: 50%; background: rgba(0, 0, 0, .5); text-align: center; z-index: 999; color: #fff;
+}
+
+.loadingpng {
+	background: url(../images/common/loadings.png) no-repeat; width: 52px; height: 52px; display: inline-block; margin: 30px 0 15px;
+	-webkit-animation: rotation 2s 0s linear infinite; animation: rotation 2s 0s linear infinite;
+}
+
+@
+-webkit-keyframes rotation { 0%{
+	-webkit-transform: rotate(0deg)
+}
+
+50%{
+	-webkit-transform
+	:rotate(180deg)
+}
+75%{
+	-webkit-transform
+	:rotate(270deg)
+}
+100%{
+	-webkit-transform
+	:rotate(360deg)
+}
+}
+@
+keyframes rotation { 0%{
+-transform: rotate(0deg)
+}
+
+50%{
+transform
+:rotate(180deg)
+}
+75%{
+transform
+:rotate(270deg)
+}
+100%{
+transform
+:rotate(360deg)
+}
+}
+.requiredField {
+color: red;
+}

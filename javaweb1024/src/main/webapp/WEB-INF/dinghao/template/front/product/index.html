@@ -1,0 +1,47 @@
+<#escape x as x!"">
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商品列表</title> <#include "/template/front/css_js.html">
+</head>
+
+<body>
+	<div class="m-detail-con f-clearfix">
+		<div class="m-content">
+			<div class="m-toolbar f-mb15 f-clearfix">
+				<ul class="search-con f-fl">
+					<li style="float: left;">
+						<label style="float: left; width: auto;">产品名称</label>
+						<input type="text" name="productName" class="u-ipt u-ipt-nm" placeholder="请输入产品名称">
+					</li>
+					<li>
+						<label>产品编号:</label>
+						<input type="text" name="productNumber" class="u-ipt u-ipt-nm" id="productNumber" placeholder="请输入产品编号" />
+					</li>
+					<li>
+						<a href="javascript:void(0);" id="search" class="u-btn u-btn-auto u-btn-bg-gray u-bd-color-gray">搜 索</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="m-toolbar f-mb0 f-clearfix">
+				<ul class="search-con f-fr">
+					<li>
+						<a href="javascript:" id="addProducts" class="u-btn u-btn-auto u-btn-bg-blue u-bd-color-blue">新增商品</i></a>
+					</li>
+				</ul>
+			</div>
+			<div class="m-toolbar f-mb20 f-clearfix">
+				<div class="m-grid-wrap">
+					<table id="tableId"></table>
+					<div id="pager"></div>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="${static_url}/static/template/htmljs/product/index.js?v=${config_v}1"></script>
+</#escape>

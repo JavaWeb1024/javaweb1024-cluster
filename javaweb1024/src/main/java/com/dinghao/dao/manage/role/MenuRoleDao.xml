@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dinghao.dao.manage.role.MenuRoleDao" >
+  <resultMap id="BaseResultMap" type="com.dinghao.entity.manage.role.MenuRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="roles" property="roles" jdbcType="BIGINT" />
+    <result column="menus" property="menus" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    zihan.id, zihan.roles, zihan.menus
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="roles != null" >
+         and zihan.roles = #{roles,jdbcType=BIGINT}
+      </if>
+      <if test="menus != null" >
+         and zihan.menus = #{menus,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dh_menu_role zihan 
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.dinghao.entity.manage.role.MenuRole" >
+    select 
+    <include refid="Base_Column_List" />
+    from dh_menu_role zihan 
+    <include refid="whereFields" />
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.dinghao.entity.manage.role.MenuRole" >
+    select count(1) from dh_menu_role zihan 
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dh_menu_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.dinghao.entity.manage.role.MenuRole" >
+    insert into dh_menu_role (id, roles, menus
+      )
+    values (#{id,jdbcType=BIGINT}, #{roles,jdbcType=BIGINT}, #{menus,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dinghao.entity.manage.role.MenuRole" useGeneratedKeys="true" keyProperty="id" >
+    insert into dh_menu_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roles != null" >
+        roles,
+      </if>
+      <if test="menus != null" >
+        menus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roles != null" >
+        #{roles,jdbcType=BIGINT},
+      </if>
+      <if test="menus != null" >
+        #{menus,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dinghao.entity.manage.role.MenuRole" >
+    update dh_menu_role
+    <set >
+      <if test="roles != null" >
+        roles = #{roles,jdbcType=BIGINT},
+      </if>
+      <if test="menus != null" >
+        menus = #{menus,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

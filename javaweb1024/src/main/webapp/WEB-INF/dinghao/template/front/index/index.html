@@ -1,0 +1,174 @@
+<!doctype html>
+<!-- 统一取消变量控制判断 -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>爱刷科技</title> <#include "/template/front/css_js.html">
+</head>
+<body>
+	<div class="m-header f-clearfix">
+		<h4 class="logo">
+			<img src="${static_url}/static/template/images/common/logo.jpg" width="200" style="margin-left: -35px;">
+		</h4>
+		<ul class="link">
+			<li class="user">
+				<p>
+					<br />欢迎你:${name}
+				</p>
+				
+				<p>
+					<input type="button" value="修改密码" id="changePassword">			
+				</p>
+			</li>
+		</ul>
+		<ul class="nav" id="navId">
+			<li>
+				<a href="javascript:">商品管理</a>
+			</li>
+		</ul>
+	</div>
+	<div class="m-container f-clearfix">
+		<div class="m-main">
+			<div class="m-tabList">
+				<div id="tabLeft" class="m-tab-left"></div>
+				<div id="tabRight" class="m-tab-right"></div>
+				<div class="m-tab-list">
+					<ul id="tabList">
+						<li id="0list" class="on">
+							<a style="display: block;" href="javascript:">首页</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="m-tabCon" id="tabCon">
+				<div id="0Con" class="m-tab-content">
+					<div class="m-detail-con f-clearfix">
+						<div class="m-index-lt f-fl">
+							<div class="m-lt-box f-mb15">
+								<div class="tit">
+									<h4>我的任务</h4>
+								</div>
+								<ul class="m-fun">
+									<li>
+										<p>
+											 <a href="javascript:void(0)" id="manageProduct"><i class="icon-th-list" style="font-size: 20px;"></i>商品管理</a>
+										</p>
+										<p>快速进入商品管理页面</p>
+									</li>
+								</ul>
+							</div>
+							<div class="m-lt-box">
+								<div class="tit">
+									<h4>操作引导</h4>
+								</div>
+								<div>操作引导内容</div>
+							</div>
+						</div>
+						<div class="m-index-rt f-fr">
+							<div class="m-index-box">
+								<div class="tit">
+									<a href="#">更多</a>
+									<h4>未完成订单情况</h4>
+								</div>
+								<ul>
+									<li>
+										<a href="#"> <span>2014-11-15</span>YM20140328520
+										</a>
+									</li>
+									<li>
+										<a href="#"> <span>2014-11-15</span>YM20140328520
+										</a>
+									</li>
+									<li>
+										<a href="#"> <span>2014-11-15</span>YM20140328520
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="m-index-box">
+								<div class="tit">
+									<a href="#">更多</a>
+									<h4>系统公告</h4>
+								</div>
+								<ul>
+									<li>
+										<a href="#">进销存电脑版V1.1.0升级</a>
+									</li>
+									<li>
+										<a href="#">12月狂欢送大礼 快来占便宜啦！</a>
+									</li>
+									<li>
+										<a href="#">12月狂欢送大礼 快来占便宜啦！</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	$(function() {
+		//下面这块的数据，以后肯定是需要ajax过来的，现在暂时模拟	
+		var menuData_jc = {
+			title : '商品信息管理',
+			menuList : [{
+				text : '商品信息',
+				items : [{
+					id : 'numberMgr',
+					text : '商品管理',
+					href : '${BASE_PATH}/template/product'
+				}]
+			}]
+		}
+
+		//给一级菜单添加绑定事件，而不是在每个a上添加一个onClick事件
+		$('#navId li').click(function() {
+			//初始化
+			$('.m-container .m-nav').remove();
+			$('#mm').remove();
+			var index = $(this).index();
+			//index值为一个对应的菜单，0为第一个菜单，1为第二个菜单，以此类推	
+			switch (index) {
+				case 0 :
+					$.artTabs({
+						menu : menuData_jc
+					})
+					break;
+			}
+			$(this).addClass('on').siblings('li').removeClass('on');
+		})
+
+		$('#navId li').first().trigger('click');
+
+		$('#manageProduct').artTabs({
+			addTab : {
+				items : {
+					id : 'numberMgr',
+					title : '商品管理',
+					url : '${BASE_PATH}/template/product'
+				}
+			}
+		});
+
+	});
+	
+	$('#changePassword').click(function(){
+		layer.open({
+			type : 2,
+			title : "修改密码 ",
+			area : [ '400px', '400px' ], 
+			shadeClose : true,
+			shade : 0.5,
+			skin : 'layui-layer-rim', 
+			content : base + '/template/login/changePassword.jhtml'
+		});
+	});
+	
+	
+	
+	
+</script>
+</html>

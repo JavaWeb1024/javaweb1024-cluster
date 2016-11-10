@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+	         http://www.springframework.org/schema/lang
+	         http://www.springframework.org/schema/lang/spring-lang.xsd      
+	         http://www.springframework.org/schema/tx   
+	         http://www.springframework.org/schema/tx/spring-tx.xsd    
+	         http://www.springframework.org/schema/aop     
+	         http://www.springframework.org/schema/aop/spring-aop.xsd    
+	         http://www.springframework.org/schema/mvc     
+	         http://www.springframework.org/schema/mvc/spring-mvc.xsd   
+	         http://www.springframework.org/schema/context     
+	         http://www.springframework.org/schema/context/spring-context.xsd
+	         http://www.springframework.org/schema/cache
+	         http://www.springframework.org/schema/cache/spring-cache.xsd
+	         ">
+	<!--加载缓存设置 -->
+
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.dinghao"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<mvc:annotation-driven />
+
+	<mvc:resources mapping="/dinghao/**" location="/WEB-INF/dinghao/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/static/**" location="/WEB-INF/static/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/upload/**" location="/upload/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/ueditor/**" location="/ueditor/"
+		cache-period="31556926" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/template/**" />
+			<bean class="com.dinghao.filter.TemplateInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.dinghao.filter.GlobalInterceptor"></bean>
+		</mvc:interceptor>
+		<!-- 配置Token拦截器，防止用户重复提交数据 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.dinghao.filter.TokenInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+
+	<!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
+	<bean id="propertyConfigurer" class="com.dinghao.util.PropertyUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:dinghao.properties</value> <!-- 指定外部文件的编码 -->
+			</list>
+		</property>
+	</bean>
+
+	<!--采用注入式shrio权限管控 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!--没有权限 -->
+				<prop key="org.apache.shiro.authz.UnauthorizedException">/template/front/500</prop>
+				<prop key="java.lang.Throwable">/template/front/500</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="500">500</prop>
+				<prop key="404">404</prop>
+				<prop key="403">403</prop>
+			</props>
+		</property>
+		<property name="warnLogCategory"
+			value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" />
+		<property name="defaultErrorView" value="/template/front/500" />
+		<property name="defaultStatusCode" value="200" />
+	</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	
+	<bean id="signup_pool"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="1" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="3" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="1000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="300" />
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+	
+</beans>

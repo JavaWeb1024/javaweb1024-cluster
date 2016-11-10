@@ -1,0 +1,50 @@
+
+/* 框架 */
+.m-nav h3::selection,.m-nav li span::selection,.m-nav li::selection,.m-main li a::selection,.m-main li::selection,.m-main li span::selection{ background:none;}
+
+/* header */
+.m-header { height: 71px; position: fixed; width: 100%; top: 0px; left: 0px; background-color: #fff; border-bottom:1px solid #bbbbbb; overflow:hidden; }
+.m-header h4.logo { position: absolute; left: 10px; top: 6px;  color: darkgray;    font-style: oblique;    text-decoration: underline; }
+.m-header ul.link { position: absolute; right: 100px; top:20px; }
+.m-header ul.link li { float: left; margin-left: 25px; }
+.m-header ul.link li.user img { float: left; margin: 0 10px 0 0; }
+.m-header ul.link li.user p { float:left;}
+.m-header ul.nav{ position:absolute; left:184px; top:18px; background:#fff;}
+.m-header ul.nav li{ float:left; margin-right:30px;}
+.m-header ul.nav li a{ display:inline-block; font-size:16px; color:#8c8c8c; padding:0 10px; border-radius:6px; height:36px; line-height:36px;}
+.m-header ul.nav li a:hover,.m-header ul.nav li.on a{ color:#ffffff; background:#30a1de;}
+
+.m-container { zoom: 1; overflow: hidden; padding-top: 76px; }
+
+/* nav */
+.m-nav { width: 159px; background: #e8e8e8; position: fixed; top: 72px; left: 0px; height: 100%; z-index: 500; border-right:1px solid #bbb; }
+.m-nav h3{ cursor:default; color:#333; height:35px; line-height:35px; font-size:16px; font-weight:normal; padding-left:10px;}
+.m-nav li span { padding:0 12px; background-color:#d7d7d7; background-repeat:no-repeat; background-position:90% center; height:30px; line-height:30px; cursor:pointer; display: block; font-size:14px; color: #666;}
+.m-nav li span.open{ background-image:url(../images/common/nav_down_ico.png);}
+.m-nav li span.close{ background-image:url(../images/common/nav_up_ico.png);}
+.m-nav li dl dd { margin-bottom:5px;}
+.m-nav li dl dd a { display: block; height: 28px; line-height: 28px; text-align: left; padding-left: 20px; color: #666; }
+.m-nav li dl dd a:hover { background:#30a1de url(../images/common/nav_list_tip.png) no-repeat 90% center; color:#fff; }
+
+/* container */
+.m-main { margin-left: 160px; }
+.m-tabList { height: 34px; border:1px solid #bbb; border-left:none; border-right:none; background:#fff; position: relative; }
+.m-tab-left, .m-tab-right { position: absolute; top: 0px; width: 30px; height: 34px; cursor: pointer; z-index: 1000; }
+.m-tab-left { left: 0px; background: #fff url(../images/common/f_tabs_leftarrow.png) no-repeat center; border-right: 1px solid #e6e6e6; }
+.m-tab-right { right: 0px; background: #fff url(../images/common/f_tabs_rightarrow.png) no-repeat center;  border-left: 1px solid #e6e6e6; }
+.m-tab-list { float: left; height:34px; line-height:34px; margin-left: 31px; display: inline; width: 97%; position: relative; overflow: hidden; }
+.m-tab-list ul { position: absolute; left: 0px; top: 0px; height: 34px; width: 5000px; }
+.m-tab-list ul li { position:relative; line-height: 34px; float: left; cursor: pointer; padding: 0 20px; border-right:1px solid #e6e6e6; }
+.m-tab-list ul li span { float: left; display: inline-block; }
+.m-tab-close { display:none; position:absolute; right:2px; top:2px; font-size: 1px;  border: 1px solid #9a9a9a; width:11px; height:11px; border-radius: 12px; background: url(../images/common/f_closeN.png) no-repeat center; }
+.m-tab-list ul li.on a,.m-tab-list ul li.on span,.m-tab-list ul li:hover span { color: #0099b0; }
+.m-tab-list ul li:hover .m-tab-close { display:block; }
+.m-tab-content { width: 100%; overflow:hidden; float:left; }
+
+/* 右键选项 */
+.m-menu { display: none; width: 120px; height: 102px; position: absolute; padding: 2px; border-width: 1px; border-style: solid; overflow: hidden; background-color: #ffffff; border-color: #ddd; color: #444; }
+.menu-line { position: absolute; left: 26px; top: 0; height: 100px; font-size: 1px; border-left: 1px solid #ddd; border-right: 1px solid #fff; }
+.menu-item { height: 22px; position: relative; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; cursor: pointer; border-width: 1px; border-style: solid; border-color: transparent; }
+.menu-text { height: 20px; line-height: 20px; float: left; padding-left: 28px; }
+.menu-sep { margin: 3px 0px 3px 25px; font-size: 1px; border-top: 1px solid #ddd; border-bottom: 1px solid #fff; }
+.menu-active { border-color: #ddd; color: #444; background: #E6E6E6; }

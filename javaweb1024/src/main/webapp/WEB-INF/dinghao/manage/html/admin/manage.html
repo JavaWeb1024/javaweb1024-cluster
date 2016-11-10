@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>管理员管理</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-form-tit f-mb20 f-clearfix">
+            <ul class="m-form-grd-lt">
+                <li>
+                    <label>管理员管理</label>
+                    <span></span>
+                </li>
+            </ul>
+            <ul class="m-form-grd-rt">
+                <li>
+                    <a href="javascript:void(0);" id="add_manager" class="u-btn u-btn-auto u-btn-bg-blue">新增管理员</a>
+                </li>
+            </ul>
+        </div>
+        <div class="m-toolbar f-mb15 f-clearfix">
+            <table class="m-attr-table">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>E-mail</th>
+                    <th>姓名</th>
+                    <th>状态</th>
+                    <th>创建日期</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                <#list pageVo.list as e>
+                    <tr class="gradeA odd">
+                        <td>${e.username}</td>
+                        <td>${e.email}</td>
+                        <td>${e.name}</td>
+                        <td>
+                            <#if e.isEnabled?? && e.isEnabled> <span
+                                    class="green">正常</span>
+                                <#else><span class="red">未启用</span>
+                            </#if>
+                        </td>
+                        <td>${e.createDate?string("yyyy-MM-dd")}</td>
+                        <td>
+                            <a href="javascript:void(0);" adminid="${e.id}"
+                               class="js_update_admin" title="修改"><i class=" icon-edit"></i></a>
+                            <#if e.id gt 1>|
+                                <a href="javascript:void(0);" adminid="${e.id}" title="删除" class="js_delete_admin"><i
+                                        class="icon-remove-circle"></i>
+                                </a>
+                            </#if>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+            <div>
+                <div class="pagination">${pageVo.pageNumHtml}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/admin/manage.js?v=${config_v}"></script>
+</html>

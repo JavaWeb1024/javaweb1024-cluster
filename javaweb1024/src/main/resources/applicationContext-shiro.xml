@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-lazy-init="true">
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/admin/login.jhtml" />
+		<property name="successUrl" value="/manage/admin/myPage.jhtml" />
+		<property name="unauthorizedUrl" value="/admin/unauthorized.jhtml" />
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="authenticationFilter" />
+				<entry key="user" value-ref="userFilter" />
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				/=anon
+				*.jhtml=anon
+				/admin/login.jhtml =authc
+				/manage/** = user
+			</value>
+		</property>
+
+	</bean>
+
+	<!-- shiro securityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+
+		<!-- Single realm app. If you have multiple realms, use the 'realms' property 
+			instead. -->
+
+		<!-- sessionManager -->
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="realm" ref="authenticationRealm" />
+		<!-- cacheManager -->
+		<property name="cacheManager" ref="shiro-cacheManager" />
+	</bean>
+
+	<!-- redisSessionDAO -->
+	<bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+
+	<!-- sessionManager -->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="redisSessionDAO" />
+	</bean>
+	<!-- cacheManager -->
+	<bean id="shiro-cacheManager" class="org.crazycake.shiro.RedisCacheManager">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+
+	<!--shrio redis集成 -->
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+		<property name="host" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="expire" value="${redis.timeout}" />
+		<property name="password" value="${redis.password}"/>		
+	</bean>
+
+ 
+	<bean id="authenticationRealm" class="com.dinghao.AuthenticationRealm">
+		<property name="authorizationCacheName" value="authorization" />
+	</bean>
+
+	<bean id="authenticationFilter" class="com.dinghao.filter.AuthenticationFilter" />
+	<bean id="userFilter" class="com.dinghao.filter.MyUserFilter" />
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+</beans>

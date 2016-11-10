@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增角色</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-detail-con f-clearfix">
+            <form id="add_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/manage/role/addJson.jhtml">
+                <fieldset style="border:1px solid grey ;height: 130px;">
+                    <legend>
+                        第一步
+                    </legend>
+
+                    <ul class="m-message-list" style="height: 50px;">
+                        <li>
+                            <label>
+                                <font class="requiredField">*</font> 名称:
+                            </label>
+                            <input type="text" id="name"
+                                   class="u-ipt u-ipt-lg verify  validate[required]"
+                                   placeholder="名称"
+                                   name="name"/>
+                        </li>
+                        <li>
+                            <label>
+                                描述:
+                            </label>
+                            <input type="text" id="description" class="u-ipt u-ipt-lg"
+                                   name="description" placeholder=" 角色描述"/>
+                        </li>
+
+                    </ul>
+                    <ul class="m-form-grd-rt" style="float: right;margin-right:40%;">
+                        <li>
+                            <button id="submitForm" type="submit" class="u-btn u-btn-lg u-btn-bg-blue f-mr15">确认</button>
+                        </li>
+                    </ul>
+
+                </fieldset>
+            </form>
+        </div>
+        <div class="m-detail-con f-clearfix">
+            <form id="add_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/manage/role/updateJson.jhtml">
+                <input type="hidden" name="id" value="">
+                <fieldset style="border:1px solid grey ;height: 130px;">
+                    <legend>
+                        第二步
+                    </legend>
+                    <#list parentList.list as e>
+                        <table class="table table-striped table-advance table-hover" style="margin-bottom: 0px;">
+                            <thead>
+                            <tr>
+                                <th width="20%">父节点：${e.name}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <@zihan_menu_children_list_tag id=e.id>
+                                    <#list tag_menu_children_list as tag_menu>
+                                        <#if tag_menu.delFlag?? && tag_menu.delFlag=='1'>
+													<span style="margin: 3px 10px; display: inline-block;">
+														<input type="checkbox" name="menus" id="menu_${tag_menu.id}"
+                                                               class="validate[required]" value="${tag_menu.id}">
+                                                        <a href="javascript:void (0);" menu_id="${tag_menu.id}" class="menu_id">${tag_menu.name}[ <span class="green">正常</span> ]</#if>
+                                        </a>
+
+                                        </span>
+                                    </#list>
+                                </@zihan_menu_children_list_tag>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </#list>
+                </fieldset>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/role/add.js?v=${config_v}1"></script>
+</html>

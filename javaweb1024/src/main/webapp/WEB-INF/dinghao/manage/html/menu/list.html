@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜单管理</title>
+<#include "/manage/css_js.html">
+</head>
+<body>
+	<div class="m-detail-con f-clearfix">
+		<div class="m-content">
+			<div class="m-form-tit f-mb20 f-clearfix">
+				<ul class="m-form-grd-lt">
+					<li>
+						<label>菜单设定:</label>
+						<span></span>
+					</li>
+				</ul>
+				<ul class="m-form-grd-rt">
+					<li>
+						<a href="javascript:void(0);" id="add_menu" class="u-btn u-btn-auto u-btn-bg-blue">新增祖籍节点</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" class="u-btn u-btn-auto u-btn-bg-blue" id="add_parent">新增父节点</a>
+					</li>
+				</ul>
+			</div>
+			<div class="m-toolbar f-mb15 f-clearfix">
+				<#list parentList.list as e>
+				<table class="m-attr-table">
+					<thead>
+						<tr>
+							<th  width="20%">父节点：${e.name}</th>
+							<th>
+								<a href="javascript:void(0);" adminid="${e.id}" title="新增子节点" class="addChildren">
+									<i class="icon-plus">&nbsp;&nbsp;</i>
+								</a>
+								<a href="javascript:void(0);" adminid="${e.id}" title="修改" class="editParent">
+									<i class=" icon-edit"></i>&nbsp;&nbsp;
+								</a>
+								<a href="javascript:void(0);" adminid="${e.id}" title="删除" class="js_delete_menu">
+									<i class="icon-remove-circle"></i>&nbsp;&nbsp;
+								</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody role="alert" aria-live="polite" aria-relevant="all">
+						<tr>
+							<td></td>
+							<td>
+								<@zihan_menu_children_list_tag id=e.id> <#list tag_menu_children_list as tag_menu>
+								<span style="margin: 3px 10px; display: inline-block;">
+									${tag_menu_index+1}.
+									<a href="javascript:void(0);" adminid="${tag_menu.id}" title="修改子节点" class="editChild"> ${tag_menu.name}</a>
+									[<#if tag_menu.delFlag?? && tag_menu.delFlag=='0'>
+									<span class="red">未启用</span>
+									<#else>
+									<span class="green">正常</span>
+									</#if>]
+								</span>
+								</#list> </@zihan_menu_children_list_tag>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</#list>
+				<div>
+					<div class="pagination">${parentList.pageNumHtml}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/menu/list.js?v=${config_v}"></script>
+</html>

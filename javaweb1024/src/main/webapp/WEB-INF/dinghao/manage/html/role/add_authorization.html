@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增角色权限</title>
+    <#include "/manage/css_js.html">
+        </head>
+<body>
+<div class="m-detail-con f-clearfix">
+    <div class="m-content">
+        <div class="m-form-tit f-mb20 f-clearfix">
+            <h4>角色菜单权限</h4>
+        </div>
+        <div class="m-toolbar f-mb15 f-clearfix">
+            <table class="m-attr-table">
+                <thead>
+                <tr>
+                    <th>权限名称</th>
+                    <th>权限值</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody role="alert" id="tbody" aria-live="polite" aria-relevant="all">
+                <#list menuRoleAuthorizations as menuRoleAuthorization>
+                    <tr>
+                        <td>${menuRoleAuthorization.authorizationDescription}</td>
+                        <td>${menuRoleAuthorization.authorizationName}</td>
+                        <td>
+                            <a href="javascript:void (0);" title="删除" data-val="${menuRoleAuthorization.id}" class="delete"><i class=" icon-remove-circle"></i>&nbsp;&nbsp; </a>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+        </div>
+        <div class="m-detail-con f-clearfix">
+            <form id="add_form" method="post" class="form-horizontal" autocomplete="off"
+                  action="${BASE_PATH}/manage/role/add_authorization_from.jhtml">
+                <input type="hidden" name="roles" value="${roles}">
+                <input type="hidden" name="menus" value="${menus}">
+                <input type="hidden" name="menuRoleId">
+                <ul class="m-message-list" style="height: 80px;">
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 权限名称:
+                        </label>
+                        <input type="text" id="authorizationDescription"
+                               class="u-ipt u-ipt-lg verify  validate[required]"
+                               placeholder="名称"
+                               name="authorizationDescription"/>
+                    </li>
+                    <li>
+                        <label>
+                            <font class="requiredField">*</font> 权限值:
+                        </label>
+                        <input type="text" id="authorizationName"
+                               class="u-ipt u-ipt-lg verify  validate[required]"
+                               placeholder="权限值"
+                               name="authorizationName"/>
+                    </li>
+                </ul>
+                <ul class="m-form-grd-rt" style="float: right;margin-right:40%;">
+                    <li>
+                        <button id="submitForm" type="submit" class="u-btn u-btn-lg u-btn-bg-blue f-mr15">确认</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${static_url}/static/manage/htmljs/role/add_authorization.js?v=${config_v}"></script>
+</html>

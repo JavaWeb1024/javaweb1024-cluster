@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dinghao.dao.manage.role.RoleDao">
+	<resultMap id="BaseResultMap" type="com.dinghao.entity.manage.role.Role">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="is_system" property="isSystem" jdbcType="BIT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, description, is_system, name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from dh_role
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		dh_role
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteAllByPrimaryKey" parameterType="java.lang.Long">
+		DELETE a, b, c,
+		d FROM dh_role c LEFT JOIN dh_admin_role a ON a.roles = c.id LEFT JOIN
+		dh_menu_role b ON b.roles = c.id LEFT JOIN dh_menu_role_authorization
+		d ON D.menu_role_id = B.id WHERE C.id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertSelective" parameterType="com.dinghao.entity.vo.manage.rolevo.RoleVo"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="GENERATED_KEY">
+		insert into dh_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="isSystem != null">
+				is_system,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="isSystem != null">
+				#{isSystem,jdbcType=BIT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dinghao.entity.vo.manage.rolevo.RoleVo">
+		update dh_role
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="isSystem != null">
+				is_system = #{isSystem,jdbcType=BIT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="getAllList" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dh_role limit
+		#{offset},#{rows}
+	</select>
+
+	<select id="getRolesByadminId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from dh_role
+		left join dh_admin_role on dh_role.id=dh_admin_role.roles
+		where dh_admin_role.admins = #{id,jdbcType=BIGINT}
+	</select>
+	<!-- 获取角色信息表数据 -->
+	<select id="getRoles" resultMap="BaseResultMap"
+		parameterType="com.dinghao.entity.vo.manage.rolevo.RoleVo">
+		select
+		<include refid="Base_Column_List" />
+		from dh_role
+		<include refid="whereFields"></include>
+		limit #{offset},#{rows}
+	</select>
+	<select id="getRolesCount" resultType="int"
+		parameterType="com.dinghao.entity.vo.manage.rolevo.RoleVo">
+		select
+		count(1)
+		from dh_role
+		<include refid="whereFields"></include>
+	</select>
+
+	<sql id="whereFields">
+		<where>
+			<if test="id != null and id >0">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="createDate != null">
+				and create_date = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="modifyDate != null">
+				and modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="description != null">
+				and description = #{description,jdbcType=VARCHAR}
+			</if>
+			<if test="isSystem != null">
+				and is_system = #{isSystem,jdbcType=BIT}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<delete id="deleteAdminRoleByRoleId" parameterType="java.lang.Long">
+		delete from
+		dh_admin_role
+		where roles = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteMenuRoleByRoleId" parameterType="java.lang.Long">
+		delete from
+		dh_menu_role
+		where roles = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertMenuRoles" parameterType="map">
+		insert into
+		dh_menu_role(roles,menus) values
+		<foreach collection="menus" item="menu" open="" separator=","
+			close="">
+			(#{roleId},#{menu})
+		</foreach>
+	</insert>
+	<select id="findMenusByRoleId" resultType="long" parameterType="java.lang.Long">
+		select menus from dh_menu_role where roles=#{id}
+	</select>
+</mapper>

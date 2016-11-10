@@ -1,0 +1,63 @@
+<#escape x as x!"">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "/template/front/css_js.html">
+<title>Insert title here</title>
+</head>
+<div class="m-content">
+	<div class="m-detail-con f-clearfix m-content">
+		<form id="javawebform" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/template/product/update_products.jhtml">
+			<input type="hidden" name="id" value="${products.id}">
+			<ul class="m-message-list">
+				<li>
+					<label> <font class="requiredField">*</font>产品名称:
+					</label>
+					${products.productName}
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font> 产品编号:
+					</label>
+					${products.productNumber}
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产产地:
+					</label>
+					${products.productHome}
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>产品容量:
+					</label>
+					${products.productCapacity}
+				</li>
+
+				<li>
+					<label> <font class="requiredField">*</font>产品材质:
+					</label>
+					${products.productMaterial}
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产日期:
+					</label>
+					<#if products.productDate??> ${products.productDate?string('yyyy-MM-dd')} </#if>
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>生产企业:
+					</label>
+					${products.productCompany}
+				</li>
+				<li>
+					<label> <font class="requiredField">*</font>产品类别:
+					</label>
+					<#if products.productCategory??&&products.productCategory==2> 文物 </#if> 
+					<#if products.productCategory??&&products.productCategory==1> 红酒 </#if>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+</div>
+</html>
+<script type="text/javascript" src="${static_url}/static/template/htmljs/common/common.js?v=${config_v}"></script>
+</#escape>
